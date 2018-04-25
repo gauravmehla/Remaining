@@ -1,20 +1,28 @@
-@import url('https://fonts.googleapis.com/css?family=Gaegu');
+@import url('https://fonts.googleapis.com/css?family=Poiret+One');
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet');
 
 .App {
   text-align: center;
 }
 
-.App-logo {
+.App-icon {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
+}
+
+.Settings-icon {
+  animation: App-logo-spin infinite 20s linear;
+  height: 30px;
 }
 
 .App-header {
   padding: 20px;
   color: #e3e3e3;
-  margin-top: 15%;
-  font-size: 40px;
-  font-family: 'Gaegu', cursive;
+  margin-top: 30%;
+  margin-bottom: 5%;
+  font-size: 30px;
+  /*font-family: 'Poiret One', cursive;*/
+  font-family: 'Source Code Pro', monospace;
 }
 
 .App-title {
@@ -22,8 +30,8 @@
 }
 
 .App-intro {
-  width: 50%;
-  margin: 5% auto;
+  max-width: 750px;
+  margin: 2% auto;
 }
 
 @keyframes App-logo-spin {
@@ -31,71 +39,30 @@
   to { transform: rotate(360deg); }
 }
 
-/*
- * react-calendar-heatmap styles
- *
- * All of the styles in this file are optional and configurable!
- * The github and gitlab color scales are provided for reference.
- */
-
-.react-calendar-heatmap text {
-  font-size: 10px;
-  fill: #aaa;
+.timestamp {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  padding: 20px;
 }
 
-.react-calendar-heatmap rect:hover {
-  stroke: #555;
-  stroke-width: 1px;
+.timestamp span{
+  width: 100px;
+  margin: auto;
+  color: grey;
 }
 
-/*
- * Default color scale
- */
-
-.react-calendar-heatmap .color-empty {
-  fill: #eeeeee;
+.Dropdown-menu-container {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  padding: 10px;
 }
 
-.react-calendar-heatmap .color-filled {
-  fill: #b54141;
+.Dropdown-menu button{
+  background: transparent !important;
+  background-color: transparent;
+  border: none;
 }
 
-/*
- * Github color scale
- */
-
-.react-calendar-heatmap .color-github-0 {
-  fill: #eeeeee;
-}
-.react-calendar-heatmap .color-github-1 {
-  fill: #d6e685;
-}
-.react-calendar-heatmap .color-github-2 {
-  fill: #8cc665;
-}
-.react-calendar-heatmap .color-github-3 {
-  fill: #44a340;
-}
-.react-calendar-heatmap .color-github-4 {
-  fill: #1e6823;
-}
-
-/*
- * Gitlab color scale
- */
-
-.react-calendar-heatmap .color-gitlab-0 {
-  fill: #ededed;
-}
-.react-calendar-heatmap .color-gitlab-1 {
-  fill: #acd5f2;
-}
-.react-calendar-heatmap .color-gitlab-2 {
-  fill: #7fa8d1;
-}
-.react-calendar-heatmap .color-gitlab-3 {
-  fill: #49729b;
-}
-.react-calendar-heatmap .color-gitlab-4 {
-  fill: #254e77;
-}
+.Dropdown-menu button:focus { box-shadow: none; }

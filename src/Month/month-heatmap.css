@@ -1,0 +1,34 @@
+.month-heatmap {
+  max-width: 750px;
+}
+
+.month-heatmap .month {
+  width: 18px;
+  height: 22px;
+  background: #eee;
+  float: left;
+  margin: 3px;
+  display:table;
+}
+
+.month-heatmap .month span {
+  font-size: 15px;
+  display:table-cell;
+ vertical-align:middle;
+}
+
+.month-heatmap .done-0 {
+  background: #e67979; 
+}
+.month-heatmap .done-1 {
+  background: #cc6060; 
+}
+.month-heatmap .done-2 {
+  background: #bb5050; 
+}
+.month-heatmap .done-3 {
+  background: #b54141; 
+}
+.month-heatmap .done-4 {
+  background: #a73434; 
+}

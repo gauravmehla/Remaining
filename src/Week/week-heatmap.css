@@ -1,0 +1,35 @@
+.week-heatmap {
+  max-width: 308px;
+  margin: auto;
+}
+
+.week-heatmap .weekday {
+  width: 38px;
+  height: 42px;
+  background: #eee;
+  float: left;
+  margin: 3px;
+  display:table;
+}
+
+.week-heatmap .weekday span {
+  font-size: 15px;
+  display:table-cell;
+ vertical-align:middle;
+}
+
+.week-heatmap .done-0 {
+  background: #e67979; 
+}
+.week-heatmap .done-1 {
+  background: #cc6060; 
+}
+.week-heatmap .done-2 {
+  background: #bb5050; 
+}
+.week-heatmap .done-3 {
+  background: #b54141; 
+}
+.week-heatmap .done-4 {
+  background: #a73434; 
+}
