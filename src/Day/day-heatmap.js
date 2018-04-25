@@ -10,25 +10,35 @@ export default class DayHeatmap extends Component {
 
 		this.state = {
 			"timeLeft" : 1440 - ( +moment().format('HH') * 60 ) + +moment().format('mm'),
-			"convertToPercentage" : true
+			"convertToPercentage" : localStorage.getItem('ctp-d') === "true" ? true : false,
 		}
 	}
 
 	componentDidMount() {
  		let intervalId = setInterval(function(){
- 			if( this.state.convertToPercentage ) {
- 				let start = moment().set({hour:0,minute:0,second:0,millisecond:0});
-				let end = moment().set({hour:23,minute:59,second:59,millisecond:999});
-				let now = moment();
-				const duration = moment.duration(now.diff(start)).asMilliseconds();
-			    const total = moment.duration(end.diff(start)).asMilliseconds();
-			    const percent = 100 - ( duration * 100 / total );
-			    this.setState( { timeLeft : percent.toFixed(10) })
- 			} else {
- 				this.setState( { timeLeft : 1440 - ( +moment().format('HH') * 60 ) + +moment().format('mm') })
- 			}
+ 			this.update();
 		}.bind(this),50);
 		this.setState({intervalId: intervalId});
+ 	}
+
+ 	update() {
+ 		if( this.state.convertToPercentage ) {
+			let start = moment().startOf('day');
+			let end = moment().endOf('day');
+			let now = moment();
+			const duration = moment.duration(now.diff(start)).asMilliseconds();
+		    const total = moment.duration(end.diff(start)).asMilliseconds();
+		    const percent = 100 - ( duration * 100 / total );
+		    this.setState( { timeLeft : percent.toFixed(10) })
+		} else {
+			this.setState( { timeLeft : 1440 - ( +moment().format('HH') * 60 ) + +moment().format('mm') })
+		}
+ 	}
+
+ 	updateView() {
+ 		localStorage.setItem('ctp-d', !this.state.convertToPercentage );
+ 		this.setState( { 'convertToPercentage' : !this.state.convertToPercentage })
+ 		this.update()
  	}
 
 	componentWillUnmount(){
@@ -42,9 +52,9 @@ export default class DayHeatmap extends Component {
 			let content = [];
 			for(let i=0; i <= 24; i++){
 				if( i <= currentHour ) {
-					content.push(<div className={`day done-3`} key={i}></div>);
+					content.push(<div className={`day done-3`} key={i}><span>{ i === 0 ? 12 : i > 12 ? i - 12 : i }</span></div>);
 				} else {
-					content.push(<div className="day" key={i}></div>);
+					content.push(<div className="day" key={i}><span>{ i === 0 ? 12 : i > 12 ? i - 12 : i }</span></div>);
 				}
 			}
 			return content;
@@ -53,7 +63,7 @@ export default class DayHeatmap extends Component {
 		return (
 			<div>
 		        <header className="App-header">
-		        	<span onClick={() => { this.setState( { 'convertToPercentage' : !this.state.convertToPercentage }) }}>{ this.state.timeLeft }{ this.state.convertToPercentage ? '%' : this.state.timeLeft > 1 ? ' minutes' : ' minute' } left...</span>
+		        	<span onClick={ this.updateView.bind(this) }>{ this.state.timeLeft }{ this.state.convertToPercentage ? '%' : this.state.timeLeft > 1 ? ' minutes' : ' minute' } left...</span>
 		        </header>
 		 		<div className="day-heatmap">
         			{ schedule }

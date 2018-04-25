@@ -1,11 +1,11 @@
 .day-heatmap {
-  max-width: 700px;
+  max-width: 750px;
   margin: auto;
 }
 
 .day-heatmap .day {
-  width: 22px;
-  height: 26px;
+  width: 24px;
+  height: 28px;
   background: #eee;
   float: left;
   margin: 3px;

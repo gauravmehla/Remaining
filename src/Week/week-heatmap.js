@@ -9,16 +9,37 @@ export default class WeekHeatmap extends Component {
 	    super(props, context);
 
 		this.state = {
-			"daysLeft" : 7 - moment().weekday()	
+			"timeLeft" : 7 - moment().weekday(),
+			"convertToPercentage" : localStorage.getItem('ctp-w') === "true" ? true : false
 		}
 		
 	}
 
 	componentDidMount() {
  		let intervalId = setInterval(function(){
-			this.setState( { daysLeft : 7 - moment().weekday() })
-		}.bind(this),1000)
+ 				this.update();
+		}.bind(this),50)
 		this.setState({intervalId: intervalId});
+ 	}
+
+ 	update() {
+ 		if( this.state.convertToPercentage ) {
+			let start = moment().startOf('week').add(1,'day');
+			let end = moment().endOf('week').add(1,'day');
+			let now = moment();
+			const duration = moment.duration(now.diff(start)).asMilliseconds();
+		    const total = moment.duration(end.diff(start)).asMilliseconds();
+		    const percent = 100 - ( duration * 100 / total );
+		    this.setState( { timeLeft : percent.toFixed(10) })
+		} else {
+			this.setState( { timeLeft : 7 - moment().weekday() })
+		}
+ 	}
+
+ 	updateView() {
+ 		localStorage.setItem('ctp-w', !this.state.convertToPercentage );
+ 		this.setState( { 'convertToPercentage' : !this.state.convertToPercentage })
+ 		this.update()
  	}
 
 	componentWillUnmount(){
@@ -45,7 +66,7 @@ export default class WeekHeatmap extends Component {
 		return (
 			<div>
 		        <header className="App-header">
-		        	{ this.state.daysLeft } { this.state.daysLeft > 1 ? 'days' : 'day' } left...
+		        	<span onClick={ this.updateView.bind(this) }>{ this.state.timeLeft }{ this.state.convertToPercentage ? '%' : this.state.timeLeft > 1 ? ' days' : ' day' } left...</span>
 		        </header>
 		 		<div className="week-heatmap">
         			{ schedule }

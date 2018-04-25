@@ -1,10 +1,10 @@
 .month-heatmap {
-  max-width: 750px;
+  max-width: 700px;
 }
 
 .month-heatmap .month {
-  width: 18px;
-  height: 22px;
+  width: 30px;
+  height: 34px;
   background: #eee;
   float: left;
   margin: 3px;

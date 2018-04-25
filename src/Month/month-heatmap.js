@@ -10,15 +10,36 @@ export default class MonthHeatmap extends Component {
 	    super(props, context);
 
 		this.state = {
-			"daysLeft" : moment().daysInMonth() - moment().date()
+			timeLeft : moment().daysInMonth() - moment().date(),
+			convertToPercentage : localStorage.getItem('ctp-m') === "true" ? true : false,
 		}
 	}
 
 	componentDidMount() {
  		let intervalId = setInterval(function(){
-			this.setState( { daysLeft : moment().daysInMonth() - moment().date() })
-		}.bind(this),1000)
+ 			this.update();
+		}.bind(this), 50)
 		this.setState({intervalId: intervalId});
+ 	}
+
+ 	update() {
+ 		if( this.state.convertToPercentage ) {
+	 		let start = moment().startOf('month');
+			let end = moment().endOf('month');
+			let now = moment();
+			const duration = moment.duration(now.diff(start)).asMilliseconds();
+		    const total = moment.duration(end.diff(start)).asMilliseconds();
+		    const percent = 100 - ( duration * 100 / total );
+		    this.setState( { timeLeft : percent.toFixed(10) })
+		} else {
+			this.setState( { timeLeft : moment().daysInMonth() - moment().date() })
+		}
+ 	}
+
+ 	updateView() {
+ 		localStorage.setItem('ctp-m', !this.state.convertToPercentage );
+ 		this.setState( { 'convertToPercentage' : !this.state.convertToPercentage })
+ 		this.update()
  	}
 
 	componentWillUnmount(){
@@ -31,9 +52,9 @@ export default class MonthHeatmap extends Component {
 			let content = [];
 			for(let i=1; i <= moment().daysInMonth(); i++){
 				if( i <= moment().date()) {
-					content.push(<div className={`month done-3`} key={i}></div>);
+					content.push(<div className={`month done-3`} key={i}><span>{i}</span></div>);
 				} else {
-					content.push(<div className="month" key={i}></div>);
+					content.push(<div className="month" key={i}><span>{i}</span></div>);
 				}
 			}
 			return content;
@@ -42,7 +63,7 @@ export default class MonthHeatmap extends Component {
 		return (
 			<div>
 		        <header className="App-header">
-		        	{ this.state.daysLeft } { this.state.daysLeft > 1 ? 'days' : 'day' } left...
+		        	<span onClick={ this.updateView.bind(this) }>{ this.state.timeLeft }{ this.state.convertToPercentage ? '%' : this.state.timeLeft > 1 ? ' days' : ' day' } left...</span>
 		        </header>
 		 		<div className="month-heatmap">
         			{ schedule }

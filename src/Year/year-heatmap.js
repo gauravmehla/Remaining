@@ -14,9 +14,10 @@ export default class YearHeatmap extends Component {
 
 	  	this.state = {
 	      	numDays : 365,
-	      	values: this.getDummyDates(moment().startOf('year'), new Date())
+	      	values: this.getDummyDates(moment().startOf('year'), new Date()),
+	      	timeLeft : moment( moment().endOf('year') ).dayOfYear() - moment().dayOfYear(),
+	      	convertToPercentage : localStorage.getItem('ctp-y') === "true" ? true : false
 	    } 
- 
  	}
 
  	getDummyDates = function(startDate, endDate) {
@@ -31,9 +32,28 @@ export default class YearHeatmap extends Component {
 
  	componentDidMount() {
  		let intervalId =setInterval(function(){
-			this.setState( { values : this.getDummyDates(moment().startOf('year'), new Date()) })
-		}.bind(this),1000)
+ 			this.update();
+		}.bind(this),50)
 		this.setState({intervalId: intervalId});
+ 	}
+
+ 	update() {
+ 		if( this.state.convertToPercentage ) {
+			let now = moment();
+			const duration = moment.duration(now.diff(this.yearStart)).asMilliseconds();
+		    const total = moment.duration(this.yearEnd.diff(this.yearStart)).asMilliseconds();
+		    const percent = 100 - ( duration * 100 / total );
+		    this.setState( { timeLeft : percent.toFixed(10) })
+		} else {
+			this.setState( { timeLeft : moment( moment().endOf('year') ).dayOfYear() - moment().dayOfYear() })
+		}
+		this.setState( { values : this.getDummyDates(moment().startOf('year'), new Date()) })
+ 	}
+
+ 	updateView() {
+ 		localStorage.setItem('ctp-y', !this.state.convertToPercentage );
+ 		this.setState( { 'convertToPercentage' : !this.state.convertToPercentage })
+ 		this.update()
  	}
 
  	componentWillUnmount(){
@@ -42,13 +62,10 @@ export default class YearHeatmap extends Component {
 	}
 
 	render() {
-
-		let daysLeft = moment( moment().endOf('year') ).dayOfYear() - moment().dayOfYear();
-
 		return (
 			<div className="react-calendar-heatmap">
 				<header className="App-header">
-			        { daysLeft } { daysLeft > 1 ? 'days' : 'day' } left...
+			        <span onClick={ this.updateView.bind(this) } >{ this.state.timeLeft }{ this.state.convertToPercentage? '%' : this.state.timeLeft > 1 ? ' days' : ' day' } left...</span>
 		        </header>
 				<CalendarHeatmap
 	      			startDate={ this.yearStart }

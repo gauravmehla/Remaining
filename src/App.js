@@ -22,18 +22,18 @@ class App extends Component {
 
 	  	this.state = {
 	      	dropdownOpen: false,
-	      	view : "day",
-	      	now : moment().format("dddd, MMMM Do YYYY, hh:mm:ss A")
+	      	now : moment().format("dddd, MMMM Do YYYY, hh:mm:ss A"),
+	      	view : localStorage.getItem('view-type') ? localStorage.getItem('view-type') : 'year'
 	    } 
 
 	    this.updateView( this.state.view );
  	}
 
-  toggle() {
-    this.setState(prevState => ({
-      dropdownOpen: !prevState.dropdownOpen
-    }));
-  }
+	toggle() {
+	    this.setState(prevState => ({
+	      dropdownOpen: !prevState.dropdownOpen
+	    }));
+	}
 
   	componentDidMount() {
  		let intervalId = setInterval(function(){
@@ -47,22 +47,28 @@ class App extends Component {
 	   clearInterval(this.state.intervalId);
 	}
 
-  updateView( type ) {
-  	if( type === "year" ){
-  		this.currentView = <YearHeatmap />
-  	} else if( type === "month" ) {
-  		this.currentView = <MonthHeatmap />
-  	} else if( type === "week" ) {
-  		this.currentView = <WeekHeatmap />
-  	} else if( type === "day" ) {
-  		this.currentView = <DayHeatmap />
-  	}
-  }
+	updateView( type ) {
+	  	if( type === "year" ){
+	  		this.currentView = <YearHeatmap />
+	  	} else if( type === "month" ) {
+	  		this.currentView = <MonthHeatmap />
+	  	} else if( type === "week" ) {
+	  		this.currentView = <WeekHeatmap />
+	  	} else if( type === "day" ) {
+	  		this.currentView = <DayHeatmap />
+	  	} else {
+	  		return false;
+	  	}
+	  	localStorage.setItem('view-type', type);
+	}
 
-  shouldComponentUpdate() {
-    return !document.hidden;
-  }
+	shouldComponentUpdate() {
+	    return !document.hidden;
+	}
 
+	redirect( url ) {
+		window.open(url, '_blank');
+	}
 
   	render() {
 	    return (
@@ -82,7 +88,7 @@ class App extends Component {
 				          <DropdownItem onClick={ this.updateView.bind(this, 'week') }>Week</DropdownItem>
 				          <DropdownItem onClick={ this.updateView.bind(this, 'day') }>Day</DropdownItem>
 				          <DropdownItem divider />
-				          <DropdownItem>Action</DropdownItem>
+				          <DropdownItem onClick={()=> { this.redirect("http://gauravmehla.github.io/remaining") } }> About </DropdownItem>
 				        </DropdownMenu>
 				      </Dropdown>
 		        </div>

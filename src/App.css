@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Poiret+One');
-@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet');
+@import url('https://fonts.googleapis.com/css?family=Fira+Mono" rel="stylesheet');
+/*@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet');*/
 
 .App {
   text-align: center;
@@ -21,8 +21,7 @@
   margin-top: 30%;
   margin-bottom: 5%;
   font-size: 30px;
-  /*font-family: 'Poiret One', cursive;*/
-  font-family: 'Source Code Pro', monospace;
+  font-family: 'Fira Mono', monospace;
 }
 
 .App-title {

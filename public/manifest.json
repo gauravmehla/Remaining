@@ -1,15 +1,19 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
-  "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    }
-  ],
-  "start_url": "./index.html",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "name": "Remaining : A New Tab Extension",
+  "short_name": "Remaining : A New Tab Extension",
+  "description": "The coolest new tab extension which will tell you how much time is left in year, month, week and day.",
+  "version": "0.0.1",
+  "icons": {
+    "16": "./icons/16.png",
+    "24": "./icons/24.png",
+    "32": "./icons/32.png",
+    "64": "./icons/64.png",
+    "128": "./icons/128.png",
+    "256": "./icons/256.png",
+    "512": "./icons/512.png"
+  },
+  "chrome_url_overrides" : {
+    "newtab" : "./index.html"
+  },
+  "manifest_version": 2
 }
