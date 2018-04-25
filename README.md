@@ -19,6 +19,8 @@ npm run build
 
 Want to know more, visit this [link](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md)
 
+> To try built Chrome extension, you should go to `chrome://extensions` and press the button "Load unpacked extension" and select the `build` folder.
+
 ## Technologies and Libraries Used
 
 #### For building application
