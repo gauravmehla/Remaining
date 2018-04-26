@@ -31,7 +31,7 @@ Want to know more, visit this [link](https://github.com/facebook/create-react-ap
 - [Reactstrap](https://reactstrap.github.io/)
 - [MomentJS](https://momentjs.com/)
 - [React-calender-heatmap](https://www.npmjs.com/package/react-calendar-heatmap)
-- [React-color][https://casesandberg.github.io/react-color/] :heart:
+- [React-color](https://casesandberg.github.io/react-color) :heart:
 
 #### For landing page
 
