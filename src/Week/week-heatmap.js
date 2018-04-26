@@ -55,7 +55,7 @@ export default class WeekHeatmap extends Component {
 			let content = [];
 			for(let i=1; i <= 7; i++){
 				if( i <= weekday ) {
-					content.push(<div className={`weekday done-3`} key={i}><span>{weekInitials[i-1]}</span></div>);
+					content.push(<div className={`weekday done`} key={i}><span>{weekInitials[i-1]}</span></div>);
 				} else {
 					content.push(<div className="weekday" key={i}><span>{weekInitials[i-1]}</span></div>);
 				}

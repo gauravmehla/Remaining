@@ -52,7 +52,7 @@ export default class MonthHeatmap extends Component {
 			let content = [];
 			for(let i=1; i <= moment().daysInMonth(); i++){
 				if( i <= moment().date()) {
-					content.push(<div className={`month done-3`} key={i}><span>{i}</span></div>);
+					content.push(<div className={`month done`} key={i}><span>{i}</span></div>);
 				} else {
 					content.push(<div className="month" key={i}><span>{i}</span></div>);
 				}

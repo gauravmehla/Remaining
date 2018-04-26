@@ -31,7 +31,7 @@ export default class YearHeatmap extends Component {
 	}
 
  	componentDidMount() {
- 		let intervalId =setInterval(function(){
+ 		let intervalId = setInterval(function(){
  			this.update();
 		}.bind(this),50)
 		this.setState({intervalId: intervalId});
@@ -76,7 +76,7 @@ export default class YearHeatmap extends Component {
 					    if (!day) {
 					      return 'color-empty';
 					    }
-					    return `color-github-${day.value}`;
+					    return `yearColor`;
 					}}
 	      		/>
       		</div>

@@ -9,7 +9,7 @@ export default class DayHeatmap extends Component {
 	    super(props, context);
 
 		this.state = {
-			"timeLeft" : 1440 - ( +moment().format('HH') * 60 ) + +moment().format('mm'),
+			"timeLeft" : 1440 - ( ( +moment().format('HH') * 60 ) + +moment().format('mm') ),
 			"convertToPercentage" : localStorage.getItem('ctp-d') === "true" ? true : false,
 		}
 	}
@@ -31,7 +31,7 @@ export default class DayHeatmap extends Component {
 		    const percent = 100 - ( duration * 100 / total );
 		    this.setState( { timeLeft : percent.toFixed(10) })
 		} else {
-			this.setState( { timeLeft : 1440 - ( +moment().format('HH') * 60 ) + +moment().format('mm') })
+			this.setState( { timeLeft : 1440 - ( ( +moment().format('HH') * 60 ) + +moment().format('mm') )})
 		}
  	}
 
@@ -52,7 +52,7 @@ export default class DayHeatmap extends Component {
 			let content = [];
 			for(let i=0; i <= 24; i++){
 				if( i <= currentHour ) {
-					content.push(<div className={`day done-3`} key={i}><span>{ i === 0 ? 12 : i > 12 ? i - 12 : i }</span></div>);
+					content.push(<div className={`day done`} key={i}><span>{ i === 0 ? 12 : i > 12 ? i - 12 : i }</span></div>);
 				} else {
 					content.push(<div className="day" key={i}><span>{ i === 0 ? 12 : i > 12 ? i - 12 : i }</span></div>);
 				}

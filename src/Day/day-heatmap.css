@@ -17,19 +17,3 @@
   display:table-cell;
  vertical-align:middle;
 }
-
-.day-heatmap .done-0 {
-  background: #e67979; 
-}
-.day-heatmap .done-1 {
-  background: #cc6060; 
-}
-.day-heatmap .done-2 {
-  background: #bb5050; 
-}
-.day-heatmap .done-3 {
-  background: #b54141; 
-}
-.day-heatmap .done-4 {
-  background: #a73434; 
-}

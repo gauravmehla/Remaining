@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Fira+Mono" rel="stylesheet');
-/*@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet');*/
 
 .App {
   text-align: center;
+  user-select: none;
 }
 
 .App-icon {
@@ -18,7 +18,7 @@
 .App-header {
   padding: 20px;
   color: #e3e3e3;
-  margin-top: 30%;
+  margin-top: 210px;
   margin-bottom: 5%;
   font-size: 30px;
   font-family: 'Fira Mono', monospace;
@@ -51,6 +51,26 @@
   color: grey;
 }
 
+.dropdown-menu{
+  padding: 0px !important;
+  text-align: center !important;
+}
+
+.button-group {
+  border-radius: 0px;
+}
+
+.button-group button{
+  color: black !important;
+  border: none;
+  outline:none;
+}
+
+.button-group .active {
+  background: #cfcfcf !important;
+  color: white;
+}
+
 .Dropdown-menu-container {
   position: fixed;
   top: 0px;
@@ -64,4 +84,4 @@
   border: none;
 }
 
-.Dropdown-menu button:focus { box-shadow: none; }
+.Dropdown-menu button:focus { box-shadow: none !important; }

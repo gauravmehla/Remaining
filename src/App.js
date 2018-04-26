@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
-import './App.css';
-import SettingsIcon from './cogwheel.svg';
+import { Dropdown, DropdownToggle, DropdownMenu, ButtonGroup, Button } from 'reactstrap';
+import { SketchPicker } from 'react-color';
 import moment from 'moment';
 
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-
-
-import YearHeatmap from './Year/year-heatmap'
+// Views
+import YearHeatmap 	from './Year/year-heatmap'
 import MonthHeatmap from './Month/month-heatmap'
-import WeekHeatmap from './Week/week-heatmap'
-import DayHeatmap from './Day/day-heatmap'
+import WeekHeatmap 	from './Week/week-heatmap'
+import DayHeatmap 	from './Day/day-heatmap'
+
+// assets
+import './App.css';
+import SettingsIcon from './cogwheel.svg';
 
 class App extends Component {
-
-	currentView = '';
 
   	constructor(props, context) {
 	    super(props, context);
@@ -26,7 +26,18 @@ class App extends Component {
 	      	view : localStorage.getItem('view-type') ? localStorage.getItem('view-type') : 'year'
 	    } 
 
+	    this.getBackgroundColor();
 	    this.updateView( this.state.view );
+ 	}
+
+ 	getBackgroundColor() {
+ 		let anySavedColor = localStorage.getItem('background')
+ 		if( !anySavedColor ) {
+	    	localStorage.setItem('background', '#b54141');
+	    	return '#b54141';
+	    } else {
+	    	return localStorage.getItem('background');
+	    }
  	}
 
 	toggle() {
@@ -70,32 +81,56 @@ class App extends Component {
 		window.open(url, '_blank');
 	}
 
+	isActiveClass( type) {
+		return localStorage.getItem('view-type') === type ? 'active' : '';
+	}
+
+	handleChangeComplete(color) {
+		localStorage.setItem('background', color.hex );
+	};
+
   	render() {
+  		let selectedColor = this.getBackgroundColor();
+  		let style = `
+  			.yearColor { fill : ${ selectedColor }}
+  			.done { background : ${ selectedColor } !important}
+  		`;
 	    return (
-	      	<div className="App">
-	        	<div className="App-intro">
-	        		{ this.currentView }
-	        	</div>
+	    	<div>
+		    	<style type="text/css"> { style } </style>
+		      	<div className="App">
+		        	<div className="App-intro">
+		        		{ this.currentView }
+		        	</div>
 
-	        	<div className="Dropdown-menu-container">
-		        	<Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} className="Dropdown-menu">
-				        <DropdownToggle>
-				          <img src={SettingsIcon} className="Settings-icon" alt="icon" />
-				        </DropdownToggle>
-				        <DropdownMenu>
-				          <DropdownItem onClick={ this.updateView.bind(this, 'year') }>Year</DropdownItem>
-				          <DropdownItem onClick={ this.updateView.bind(this, 'month') }>Month</DropdownItem>
-				          <DropdownItem onClick={ this.updateView.bind(this, 'week') }>Week</DropdownItem>
-				          <DropdownItem onClick={ this.updateView.bind(this, 'day') }>Day</DropdownItem>
-				          <DropdownItem divider />
-				          <DropdownItem onClick={()=> { this.redirect("http://gauravmehla.github.io/remaining") } }> About </DropdownItem>
-				        </DropdownMenu>
-				      </Dropdown>
-		        </div>
+		        	<div className="Dropdown-menu-container">
+			        	<Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} className="Dropdown-menu">
+					        <DropdownToggle>
+					          <img src={SettingsIcon} className="Settings-icon" alt="icon" />
+					        </DropdownToggle>
+					        <DropdownMenu> 
+				        	  <ButtonGroup className="button-group" size="sm">
+						        <Button className={ this.isActiveClass('year') } onClick={ this.updateView.bind(this, 'year') }>Year</Button>
+						        <Button className={ this.isActiveClass('month') } onClick={ this.updateView.bind(this, 'month') }>Month</Button>
+						        <Button className={ this.isActiveClass('week') } onClick={ this.updateView.bind(this, 'week') }>Week</Button>
+						        <Button className={ this.isActiveClass('day') } onClick={ this.updateView.bind(this, 'day') }>Day</Button>
+						      </ButtonGroup> 
+					          <SketchPicker 
+					          	color={ localStorage.getItem('background') }
+	        					onChange={ this.handleChangeComplete }
+	        					disableAlpha={true}
+	        				  />
+	        				  <ButtonGroup className="button-group" size="sm">
+						        <Button onClick={()=> { this.redirect("http://gauravmehla.github.io/Remaining") } }> About </Button>
+						      </ButtonGroup>
+					        </DropdownMenu>
+					      </Dropdown>
+			        </div>
 
-		        <div className="timestamp">
-		        	<span>{ this.state.now }</span>
-		        </div>
+			        <div className="timestamp">
+			        	<span>{ this.state.now }</span>
+			        </div>
+		      </div>
 	      </div>
 	    );
   	}
